@@ -1,6 +1,20 @@
 <?php 
 
     include './database.php';
+
+    //create database
+    try{
+        $conn = new PDO("mysql:host=$DB_DSN", $DB_USER, $DB_PASSWORD);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "CREATE DATABASE IF NOT EXISTS rush00";
+        $conn->exec($sql);
+        $sql = "use rush00";
+        $conn->exec($sql);
+        echo "Database ". $DB_NAME." created successfully";
+    } catch(PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+
     $user = "CREATE TABLE IF NOT EXISTS users ("
     . "id int NOT NULL AUTO_INCREMENT,"
     . "fullName varchar(100),"
