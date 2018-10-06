@@ -1,16 +1,14 @@
 <?php 
 
-    include './database.php';
+    include "./includes/conn.php";
 
     //create database
     try{
-        $conn = new PDO("mysql:host=$DB_DSN", $DB_USER, $DB_PASSWORD);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "CREATE DATABASE IF NOT EXISTS rush00";
         $conn->exec($sql);
         $sql = "use rush00";
         $conn->exec($sql);
-        echo "Database ". $DB_NAME." created successfully";
+        echo "Database ". $DB_NAME." created successfully <br>";
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
@@ -27,11 +25,9 @@
     . "city varchar(50),"
     . "country varchar(1000),"
     . "password varchar(1000),"
-    . "dateCreated date DEFAULT NOW(),"
+    . "dateCreated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
     . "PRIMARY KEY (id));";
     try {
-        $conn = new PDO("mysql:host=$DB_DSN;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $conn->exec($user);
         echo "Users table created successfully <br>";
     } catch (PDOException $e) {
@@ -45,15 +41,13 @@
     . "category varchar(100),"
     . "price varchar(100),"
     . "quantity varchar(100),"
-    . "dateCreated date DEFAULT NOW(),"
+    . "dateCreated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
     . "PRIMARY KEY (id));";
     try {
-        $conn = new PDO("mysql:host=$DB_DSN;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $conn->exec($user);
+        $conn->exec($product);
         echo "Procucts table created successfully <br>";
     } catch (PDOException $e) {
-        echo "error: " . $user . "<br>" . $e->getMessage();
+        echo "error: " . $product . "<br>" . $e->getMessage();
     }
 
     //create tables for orders
@@ -63,14 +57,12 @@
     . "productId int NOT NULL,"
     . "customerId int NOT NULL,"
     . "status varchar(100),"
-    . "dateCreated date DEFAULT NOW(),"
+    . "dateCreated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
     . "PRIMARY KEY (id));";
     try {
-        $conn = new PDO("mysql:host=$DB_DSN;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $conn->exec($user);
+        $conn->exec($orders);
         echo "Orders table created successfully <br>";
     } catch (PDOException $e) {
-        echo "error: " . $user . "<br>" . $e->getMessage();
+        echo "error: " . $orders . "<br>" . $e->getMessage();
     }
     $conn = null;
