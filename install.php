@@ -15,6 +15,7 @@
         echo "Error: " . $e->getMessage();
     }
 
+    //create tables for users
     $user = "CREATE TABLE IF NOT EXISTS users ("
     . "id int NOT NULL AUTO_INCREMENT,"
     . "fullName varchar(100),"
@@ -36,6 +37,8 @@
     } catch (PDOException $e) {
         echo "error: " . $user . "<br>" . $e->getMessage();
     }
+
+    //create tables for products
     $product = "CREATE TABLE IF NOT EXISTS products ("
     . "id int NOT NULL AUTO_INCREMENT,"
     . "name varchar(100),"
@@ -52,6 +55,8 @@
     } catch (PDOException $e) {
         echo "error: " . $user . "<br>" . $e->getMessage();
     }
+
+    //create tables for orders
     $orders = "CREATE TABLE IF NOT EXISTS orders ("
     . "id int NOT NULL AUTO_INCREMENT,"
     . "orderNumber varchar(100) UNIQUE,"
